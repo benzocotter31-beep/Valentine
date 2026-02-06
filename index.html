@@ -130,17 +130,38 @@
     // Keep the No button inside the container bounds
     const rand = (min, max) => Math.random() * (max - min) + min;
 
-    function moveNoAway(ev){
-      const rect = container.getBoundingClientRect();
-      const btnRect = no.getBoundingClientRect();
-      const cursorX = (ev.touches ? ev.touches[0].clientX : ev.clientX) || (btnRect.left + btnRect.width/2);
-      const cursorY = (ev.touches ? ev.touches[0].clientY : ev.clientY) || (btnRect.top + btnRect.height/2);
+   function moveNoAway(ev){
+  const rect = container.getBoundingClientRect();
+  const btnRect = no.getBoundingClientRect();
+  const cursorX = (ev.touches ? ev.touches[0].clientX : ev.clientX) || (btnRect.left + btnRect.width/2);
+  const cursorY = (ev.touches ? ev.touches[0].clientY : ev.clientY) || (btnRect.top + btnRect.height/2);
 
-      // Vector away from cursor
-      const centerX = btnRect.left + btnRect.width/2;
-      const centerY = btnRect.top + btnRect.height/2;
-      let dx = centerX - cursorX;
-      let dy = centerY - cursorY;
+  // Vector away from cursor
+  const centerX = btnRect.left + btnRect.width/2;
+  const centerY = btnRect.top + btnRect.height/2;
+  let dx = centerX - cursorX;
+  let dy = centerY - cursorY;
+
+  const dist = Math.max(Math.hypot(dx,dy), 0.001);
+  dx = dx / dist; dy = dy / dist;
+
+  const hop = 140;
+  let nextX = (centerX + dx * hop) - rect.left;
+  let nextY = (centerY + dy * hop) - rect.top;
+
+  const pad = 20;
+  nextX = Math.min(Math.max(nextX, pad), rect.width - pad);
+  nextY = Math.min(Math.max(nextY, pad), rect.height - pad);
+
+  no.style.left = nextX + 'px';
+  no.style.top  = nextY + 'px';
+  no.style.transform = 'translate(-50%,-50%) rotate(' + rand(-8,8) + 'deg)';
+
+  // --- NEW: make the YES button grow briefly each time NO moves ---
+  yes.classList.remove('pulse');        // reset if animation was mid-flight
+  void yes.offsetWidth;                 // force reflow so animation can restart
+  yes.classList.add('pulse');           // trigger the pulse
+}
 
       // Normalize + scale jump distance
       const dist = Math.max(Math.hypot(dx,dy), 0.001);
@@ -179,6 +200,21 @@
       no.style.opacity = .5;
     });
 
+/* --- Pulse effect for the YES button --- */
+#yesBtn {
+  transition: transform .18s ease;
+}
+
+#yesBtn.pulse {
+  animation: yesPulse .45s ease;
+}
+
+@keyframes yesPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }  /* how big it grows */
+  100% { transform: scale(1); }
+}
+    
     // Copy current page URL
     document.getElementById('shareLink').addEventListener('click', (e) => {
       e.preventDefault();
