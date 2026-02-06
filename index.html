@@ -3,20 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jessy! Will you be my Valentine? 💘</title>
-
-  <!-- Basic reset & playful theme -->
+  <title>Jessy, Will you be my Valentine Plz hehe? 💘</title>
   <style>
     :root{
-      --bg: #fff5f8;
-      --card: #ffffff;
-      --text: #2d2a32;
-      --accent: #ff4d6d;
-      --accent-2: #ff8fab;
-      --btn: #ff4d6d;
-      --btn-text: #fff;
-      --no-btn: #6c757d;
-      --shadow: 0 10px 40px rgba(0,0,0,.08);
+      --bg:#fff5f8; --card:#ffffff; --text:#2d2a32;
+      --accent:#ff4d6d; --accent-2:#ff8fab;
+      --btn:#ff4d6d; --btn-text:#fff;
+      --no-btn:#6c757d; --shadow:0 10px 40px rgba(0,0,0,.08);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -25,70 +18,57 @@
       background: radial-gradient(1200px 800px at 20% -10%, #ffe0ea, transparent 60%),
                   radial-gradient(1000px 700px at 120% 10%, #ffd6e3, transparent 50%),
                   var(--bg);
-      color:var(--text);
-      display:grid; place-items:center;
+      color:var(--text); display:grid; place-items:center;
     }
     .card{
-      width:min(92vw, 720px);
-      background:var(--card);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      padding: clamp(20px, 4vw, 36px);
-      text-align:center;
-      position:relative;
-      overflow:hidden;
+      width:min(92vw, 720px); background:var(--card); border-radius:20px;
+      box-shadow:var(--shadow); padding:clamp(20px,4vw,36px);
+      text-align:center; position:relative; overflow:hidden;
     }
-    h1{
-      font-size: clamp(28px, 4.5vw, 40px);
-      margin:6px 0 10px;
-      line-height:1.12;
-    }
-    p.lead{
-      font-size: clamp(16px, 2.4vw, 18px);
-      opacity:.9; margin:0 0 22px;
-    }
+    h1{ font-size:clamp(28px,4.5vw,40px); margin:6px 0 10px; line-height:1.12; }
+    p.lead{ font-size:clamp(16px,2.4vw,18px); opacity:.9; margin:0 0 22px; }
     .hearts{
       position:absolute; inset:0; pointer-events:none; opacity:.15;
       background:
         radial-gradient(circle 12px at 10% 20%, var(--accent), transparent 45%),
         radial-gradient(circle 10px at 70% 10%, var(--accent-2), transparent 45%),
-        radial-gradient(circle 9px at 90% 60%, var(--accent), transparent 45%),
+        radial-gradient(circle 9px  at 90% 60%, var(--accent), transparent 45%),
         radial-gradient(circle 11px at 30% 80%, var(--accent-2), transparent 45%);
       filter: blur(1px);
     }
     .buttons{
-      position:relative;
-      width:100%;
-      height:220px; /* gives the No button room to run */
-      display:grid;
-      place-items:center;
-      margin-top:8px;
+      position:relative; width:100%; height:220px;
+      display:grid; place-items:center; margin-top:8px;
     }
     button{
-      border:0; border-radius:999px;
-      padding:14px 22px; font-size:18px; cursor:pointer; transition:.2s transform, .2s box-shadow, .2s background;
+      border:0; border-radius:999px; padding:14px 22px; font-size:18px; cursor:pointer;
+      transition:.2s transform, .2s box-shadow, .2s background;
       box-shadow:0 10px 20px rgba(255,77,109,.25);
     }
     #yesBtn{
       background:linear-gradient(180deg, var(--accent), #ff2d55);
       color:var(--btn-text);
+      /* NEW: allow smooth scaling */
+      transition: transform .18s ease;
     }
+    /* NEW: pulse animation when NO moves */
+    #yesBtn.pulse { animation: yesPulse .45s ease; }
+    @keyframes yesPulse {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
     #yesBtn:active{ transform:translateY(1px); }
     #noBtn{
-      position:absolute; /* we will move it */
-      background:#e9ecef; color:#212529;
+      position:absolute; background:#e9ecef; color:#212529;
       box-shadow:0 8px 16px rgba(0,0,0,.08);
-      left:50%; top:55%;
-      transform:translate(-50%,-50%);
+      left:50%; top:55%; transform:translate(-50%,-50%);
     }
 
-    /* Success state */
-    .success{
-      display:none; margin-top:18px; font-size:18px;
-    }
+    .success{ display:none; margin-top:18px; font-size:18px; }
     .success.show{ display:block; }
 
-    /* Confetti canvas */
     #confetti{ position:fixed; inset:0; pointer-events:none; }
     footer{ margin-top:16px; font-size:13px; opacity:.7 }
     a{ color:#ff2d55; text-decoration:none }
@@ -101,23 +81,22 @@
   <main class="card" role="main" aria-labelledby="title">
     <div class="hearts" aria-hidden="true"></div>
 
-    <h1 id="title">Jessy! Will you be my Valentine? 💌</h1>
-    <p class="lead">I promise to fill your water bottle, smack ur bum and give u kisses.</p>
+    <h1 id="title">Jessy, Will you be my Valentine Plz hehe? 💘</h1>
+    <p class="lead">I promise to fill ur bottle, smack ur bum and constantly ragebait!</p>
 
     <div class="buttons" aria-live="polite">
-      <button id="yesBtn" aria-label="Yes, of course!">Yes 💖</button>
+      <button id="yesBtn" aria-label="Yes, of course!">Yes, my handsome man 💖</button>
       <button id="noBtn" aria-label="No (that dodges your cursor)">No 🙈</button>
     </div>
 
-    <p class="success" id="successMsg">Yeehawwww! Lets get food delivered to celebrate! 🥰<br/>I Love You more than Pugman likes bleeehhhhhing :D!</p>
+    <p class="success" id="successMsg">Yay! Lets get dinner delivered! 🥰<br/>I love you more than Pugman love Bleeehhing!!!</p>
 
     <footer>
-      Made with ❤️ by <span id="madeBy">Benny!</span> • <a href="#" id="shareLink">Copy link</a>
+      Made with ❤️ by <span id="madeBy">Benny</span> • <a href="#" id="shareLink">Copy link</a>
     </footer>
   </main>
 
   <script>
-    // --- Personalize name from URL ?name= parameter (optional) ---
     const params = new URLSearchParams(location.search);
     const name = params.get('name');
     if(name) document.getElementById('madeBy').textContent = name;
@@ -127,95 +106,51 @@
     const success = document.getElementById('successMsg');
     const container = document.querySelector('.buttons');
 
-    // Keep the No button inside the container bounds
     const rand = (min, max) => Math.random() * (max - min) + min;
 
-   function moveNoAway(ev){
-  const rect = container.getBoundingClientRect();
-  const btnRect = no.getBoundingClientRect();
-  const cursorX = (ev.touches ? ev.touches[0].clientX : ev.clientX) || (btnRect.left + btnRect.width/2);
-  const cursorY = (ev.touches ? ev.touches[0].clientY : ev.clientY) || (btnRect.top + btnRect.height/2);
+    function moveNoAway(ev){
+      const rect = container.getBoundingClientRect();
+      const btnRect = no.getBoundingClientRect();
+      const cursorX = (ev.touches ? ev.touches[0].clientX : ev.clientX) || (btnRect.left + btnRect.width/2);
+      const cursorY = (ev.touches ? ev.touches[0].clientY : ev.clientY) || (btnRect.top + btnRect.height/2);
 
-  // Vector away from cursor
-  const centerX = btnRect.left + btnRect.width/2;
-  const centerY = btnRect.top + btnRect.height/2;
-  let dx = centerX - cursorX;
-  let dy = centerY - cursorY;
+      const centerX = btnRect.left + btnRect.width/2;
+      const centerY = btnRect.top + btnRect.height/2;
+      let dx = centerX - cursorX;
+      let dy = centerY - cursorY;
 
-  const dist = Math.max(Math.hypot(dx,dy), 0.001);
-  dx = dx / dist; dy = dy / dist;
-
-  const hop = 140;
-  let nextX = (centerX + dx * hop) - rect.left;
-  let nextY = (centerY + dy * hop) - rect.top;
-
-  const pad = 20;
-  nextX = Math.min(Math.max(nextX, pad), rect.width - pad);
-  nextY = Math.min(Math.max(nextY, pad), rect.height - pad);
-
-  no.style.left = nextX + 'px';
-  no.style.top  = nextY + 'px';
-  no.style.transform = 'translate(-50%,-50%) rotate(' + rand(-8,8) + 'deg)';
-
-  // --- NEW: make the YES button grow briefly each time NO moves ---
-  yes.classList.remove('pulse');        // reset if animation was mid-flight
-  void yes.offsetWidth;                 // force reflow so animation can restart
-  yes.classList.add('pulse');           // trigger the pulse
-}
-
-      // Normalize + scale jump distance
       const dist = Math.max(Math.hypot(dx,dy), 0.001);
       dx = dx / dist; dy = dy / dist;
 
-      // Base hop + a bit of chaos
       const hop = 140;
       let nextX = (centerX + dx * hop) - rect.left;
       let nextY = (centerY + dy * hop) - rect.top;
 
-      // Clamp inside container with padding
       const pad = 20;
       nextX = Math.min(Math.max(nextX, pad), rect.width - pad);
       nextY = Math.min(Math.max(nextY, pad), rect.height - pad);
 
-      // Apply
       no.style.left = nextX + 'px';
       no.style.top  = nextY + 'px';
       no.style.transform = 'translate(-50%,-50%) rotate(' + rand(-8,8) + 'deg)';
+
+      // NEW: pulse the YES button on every dodge
+      yes.classList.remove('pulse');
+      void yes.offsetWidth; // restart animation if still running
+      yes.classList.add('pulse');
     }
 
-    // Make the No button flee on hover/focus/touch
     ['mouseenter','mousemove','touchstart','focus'].forEach(evt => {
       no.addEventListener(evt, moveNoAway, {passive:true});
     });
-
-    // Also nudge it every few seconds to keep things playful
     setInterval(() => moveNoAway({clientX: rand(0, innerWidth), clientY: rand(0, innerHeight)}), 2500);
 
-    // YES logic: show message + confetti
     yes.addEventListener('click', () => {
       success.classList.add('show');
       burstConfetti();
-      // Optional: disable No so it stops distracting
-      no.disabled = true;
-      no.style.opacity = .5;
+      no.disabled = true; no.style.opacity = .5;
     });
 
-/* --- Pulse effect for the YES button --- */
-#yesBtn {
-  transition: transform .18s ease;
-}
-
-#yesBtn.pulse {
-  animation: yesPulse .45s ease;
-}
-
-@keyframes yesPulse {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.12); }  /* how big it grows */
-  100% { transform: scale(1); }
-}
-    
-    // Copy current page URL
     document.getElementById('shareLink').addEventListener('click', (e) => {
       e.preventDefault();
       navigator.clipboard.writeText(location.href).then(() => {
@@ -224,7 +159,6 @@
       });
     });
 
-    // Minimal confetti without external libs
     const canvas = document.getElementById('confetti');
     const ctx = canvas.getContext('2d');
     let confettiPieces = [];
@@ -251,7 +185,7 @@
     function tick(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       confettiPieces.forEach(p=>{
-        p.vy += 0.18; // gravity
+        p.vy += 0.18;
         p.x  += p.vx;
         p.y  += p.vy;
         p.rot += p.vr;
@@ -260,14 +194,13 @@
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot * Math.PI/180);
         ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6); // little rectangles
+        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
         ctx.restore();
       });
       confettiPieces = confettiPieces.filter(p=>p.life>0 && p.y < canvas.height+10);
       if(confettiPieces.length) requestAnimationFrame(tick);
     }
 
-    // Accessibility: let keyboard users reach YES easily
     yes.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') yes.click(); });
     no.addEventListener('keydown', moveNoAway);
   </script>
